@@ -14,9 +14,6 @@ class Boundary {
     this.image = image;
   }
   draw() {
-    // c.fillStyle = "blue";
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
     c.drawImage(this.image, this.position.x, this.position.y);
   }
 }
@@ -40,6 +37,22 @@ class Pacman {
     this.position.y += this.velocity.y;
   }
 }
+
+class Food {
+  constructor({ position }) {
+    this.position = position;
+    this.radius = 3;
+  }
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.fillStyle = "white";
+    c.fill();
+    c.closePath();
+  }
+}
+
+const foods = [];
 
 const pacman = new Pacman({
   position: {
@@ -71,17 +84,17 @@ let lastKey = "";
 
 const map = [
   ["ctl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "ctr"],
-  ["|", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|"],
-  ["|", " ", "[]", "[]", "[]", "[]", "[]", " ", "[]", " ", "|"],
-  ["|", "[]", " ", " ", " ", " ", " ", " ", "[]", " ", "|"],
-  ["|", " ", "", " ", " ", " ", "[]", " ", "[]", "[]", "|"],
-  ["|", " ", " ", "[]", "[]", "[]", "[]", " ", " ", " ", "|"],
-  ["|", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|"],
-  ["|", " ", "[]", "[]", " ", " ", "[]", "[]", "[]", " ", "|"],
-  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
-  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
-  ["|", "[]", " ", "[]", " ", " ", "[]", " ", " ", " ", "|"],
-  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
+  ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
+  ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
+  ["|", "*", "*", "*", "[]", "*", "*", "*", "[]", "*", "|"],
+  ["|", "*", "[]", "*", "*", "*", "[]", "*", "[]", "[]", "|"],
+  ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
+  ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
+  ["|", "*", "[]", "[]", "*", "[]", "[]", "[]", "[]", "*", "|"],
+  ["|", "*", "*", "[]", "*", "*", "[]", "*", "*", "[]", "|"],
+  ["|", "[]", "*", "[]", "[]", "*", "*", "*", "[]", "*", "|"],
+  ["|", "[]", "*", "*", "*", "*", "[]", "*", "[]", "*", "|"],
+  ["|", "*", "*", "[]", "*", "[]", "*", "*", "*", "*", "|"],
   ["cbl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "cbr"],
 ];
 
@@ -174,7 +187,7 @@ map.forEach((row, index) => {
           })
         );
         break;
-        case "[]":
+      case "[]":
         boundaries.push(
           new Boundary({
             position: {
@@ -182,6 +195,17 @@ map.forEach((row, index) => {
               y: Boundary.height * index,
             },
             image: createImage("../images/block.png"),
+          })
+        );
+        break;
+
+      case "*":
+        foods.push(
+          new Food({
+            position: {
+              x: y * Boundary.width + Boundary.width / 2,
+              y: index * Boundary.height + Boundary.height / 2,
+            },
           })
         );
         break;
@@ -205,6 +229,24 @@ const circleCollidesWithRectangle = ({ circle, rectangle }) => {
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let index = foods.length - 1; 0 < index; index--) {
+    const food = foods[index];
+
+    food.draw();
+
+    if (
+      Math.hypot(
+        food.position.x - pacman.position.x,
+        food.position.y - pacman.position.y
+      ) <
+      food.radius + pacman.radius
+    ) {
+      console.log("touching");
+      foods.splice(index, 1);
+    }
+  }
+
   boundaries.forEach((boundary) => {
     boundary.draw();
 
