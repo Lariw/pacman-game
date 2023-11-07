@@ -1,0 +1,9 @@
+{
+  "name": "pacman-game",
+  "version": "1.0.0",
+  "description": "Pacman game",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Lariw",
+  "license": "ISC"
+}
