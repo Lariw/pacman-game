@@ -1,5 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
+const scoreElement = document.querySelector(".js-score");
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -225,6 +226,7 @@ const circleCollidesWithRectangle = ({ circle, rectangle }) => {
       rectangle.position.x + rectangle.width
   );
 };
+let score = null;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -244,6 +246,8 @@ function animate() {
     ) {
       console.log("touching");
       foods.splice(index, 1);
+      score += 10;
+      scoreElement.innerText = score;
     }
   }
 

@@ -2,3 +2,15 @@ body {
   margin: 0;
   background-color: #000;
 }
+
+.container {
+  background-color: rgb(246, 125, 145);
+  width: 100%;
+  padding: 20px;
+  color: #000;
+}
+
+.paragraph {
+  font-family: sans-serif;
+  font-weight: bold;
+}
