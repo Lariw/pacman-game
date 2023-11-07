@@ -7,7 +7,6 @@ canvas.height = innerHeight;
 class Boundary {
   static width = 40;
   static height = 40;
-
   constructor({ position }) {
     this.position = position;
     this.width = 40;
@@ -39,6 +38,17 @@ class Pacman {
   }
 }
 
+const pacman = new Pacman({
+  position: {
+    x: Boundary.width + Boundary.width / 2,
+    y: Boundary.height + Boundary.height / 2,
+  },
+  velocity: {
+    x: 0,
+    y: 0,
+  },
+});
+
 const keys = {
   w: {
     presssed: false,
@@ -57,24 +67,17 @@ const keys = {
 let lastKey = "";
 
 const map = [
-  ["-", "-", "-", "-", "-", "-"],
-  ["-", " ", " ", " ", " ", "-"],
-  ["-", " ", "-", "-", " ", "-"],
-  ["-", " ", " ", " ", " ", "-"],
-  ["-", "-", "-", "-", "-", "-"],
+  ["-", "-", "-", "-", "-", "-", "-"],
+  ["-", " ", " ", " ", " ", "", "-"],
+  ["-", " ", "-", " ", "-", "", "-"],
+  ["-", " ", " ", " ", " ", "", "-"],
+  ["-", " ", "-", "-", "-", " ", "-"],
+  ["-", " ", " ", " ", "-", " ", "-"],
+  ["-", "-", "-", "-", "-", "-", "-"],
 ];
 
 const boundaries = [];
-const pacman = new Pacman({
-  position: {
-    x: Boundary.width + Boundary.width / 2,
-    y: Boundary.height + Boundary.height / 2,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-});
+
 map.forEach((row, index) => {
   row.forEach((symbol, y) => {
     switch (symbol) {
@@ -91,24 +94,122 @@ map.forEach((row, index) => {
     }
   });
 });
+
+const circleCollidesWithRectangle = ({ circle, rectangle }) => {
+  return (
+    circle.position.y - circle.radius + circle.velocity.y <=
+      rectangle.position.y + rectangle.height &&
+    circle.position.x + circle.radius + circle.velocity.x >=
+      rectangle.position.x &&
+    circle.position.y + circle.radius + circle.velocity.y >=
+      rectangle.position.y &&
+    circle.position.x - circle.radius + circle.velocity.x <=
+      rectangle.position.x + rectangle.width
+  );
+};
+
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
   boundaries.forEach((boundary) => {
     boundary.draw();
+
+    if (
+      circleCollidesWithRectangle({
+        circle: pacman,
+        rectangle: boundary,
+      })
+    ) {
+      pacman.velocity.x = 0;
+      pacman.velocity.y = 0;
+    }
   });
 
   pacman.update();
-  pacman.velocity.y = 0;
-  pacman.velocity.x = 0;
-  if (keys.w.presssed && lastKey === 'w') {
-    pacman.velocity.y = -5;
-  } else if (keys.a.presssed && lastKey === 'a') {
-    pacman.velocity.x = -5;
-  } else if (keys.s.presssed && lastKey === 's') {
-    pacman.velocity.y = 5;
-  } else if (keys.d.presssed && lastKey === 'd') {
-    pacman.velocity.x = 5;
+  if (keys.w.presssed && lastKey === "w") {
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundary = boundaries[i];
+      if (
+        circleCollidesWithRectangle({
+          circle: {
+            ...pacman,
+            velocity: {
+              x: 0,
+              y: -2,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        pacman.velocity.y = 0;
+        break;
+      } else {
+        pacman.velocity.y = -2;
+      }
+    }
+  } else if (keys.a.presssed && lastKey === "a") {
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundary = boundaries[i];
+      if (
+        circleCollidesWithRectangle({
+          circle: {
+            ...pacman,
+            velocity: {
+              x: -2,
+              y: 0,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        pacman.velocity.x = 0;
+        break;
+      } else {
+        pacman.velocity.x = -2;
+      }
+    }
+  } else if (keys.s.presssed && lastKey === "s") {
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundary = boundaries[i];
+      if (
+        circleCollidesWithRectangle({
+          circle: {
+            ...pacman,
+            velocity: {
+              x: 0,
+              y: 2,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        pacman.velocity.y = 0;
+        break;
+      } else {
+        pacman.velocity.y = 2;
+      }
+    }
+  } else if (keys.d.presssed && lastKey === "d") {
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundary = boundaries[i];
+      if (
+        circleCollidesWithRectangle({
+          circle: {
+            ...pacman,
+            velocity: {
+              x: 2,
+              y: 0,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        pacman.velocity.x = 0;
+        break;
+      } else {
+        pacman.velocity.x = 2;
+      }
+    }
   }
 }
 
@@ -118,19 +219,19 @@ addEventListener("keydown", ({ key }) => {
   switch (key) {
     case "w":
       keys.w.presssed = true;
-      lastKey = 'w'
+      lastKey = "w";
       break;
     case "d":
       keys.d.presssed = true;
-      lastKey = 'd'
+      lastKey = "d";
       break;
     case "s":
       keys.s.presssed = true;
-      lastKey = 's'
+      lastKey = "s";
       break;
     case "a":
       keys.a.presssed = true;
-      lastKey = 'a'
+      lastKey = "a";
       break;
   }
 });
@@ -139,19 +240,19 @@ addEventListener("keyup", ({ key }) => {
   switch (key) {
     case "w":
       keys.w.presssed = false;
-      // pacman.velocity.y = 0;
+
       break;
     case "d":
       keys.d.presssed = false;
-      // pacman.velocity.x = 0;
+
       break;
     case "s":
       keys.s.presssed = false;
-      // pacman.velocity.y = 0;
+
       break;
     case "a":
       keys.a.presssed = false;
-      // pacman.velocity.x = 0;
+
       break;
   }
 });
