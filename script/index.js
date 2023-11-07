@@ -39,6 +39,28 @@ class Pacman {
   }
 }
 
+class Enemy {
+  constructor({ position, velocity, color = "pink" }) {
+    this.position = position;
+    this.velocity = velocity;
+    this.radius = 15;
+    this.color = color;
+    this.prevCollisions = [];
+  }
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.fillStyle = this.color;
+    c.fill();
+    c.closePath();
+  }
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+  }
+}
+
 class Food {
   constructor({ position }) {
     this.position = position;
@@ -52,8 +74,6 @@ class Food {
     c.closePath();
   }
 }
-
-const foods = [];
 
 const pacman = new Pacman({
   position: {
@@ -80,7 +100,21 @@ const keys = {
     presssed: false,
   },
 };
-
+const foods = [];
+const boundaries = [];
+const enemies = [
+  new Enemy({
+    position: {
+      x: Boundary.width * 6 + Boundary.width / 2,
+      y: Boundary.height + Boundary.height / 2,
+    },
+    velocity: {
+      x: -0.1,
+      y: 0,
+    },
+  }),
+];
+let score = null;
 let lastKey = "";
 
 const map = [
@@ -98,8 +132,6 @@ const map = [
   ["|", "*", "*", "[]", "*", "[]", "*", "*", "*", "*", "|"],
   ["cbl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "cbr"],
 ];
-
-const boundaries = [];
 
 const createImage = (src) => {
   const image = new Image();
@@ -226,7 +258,6 @@ const circleCollidesWithRectangle = ({ circle, rectangle }) => {
       rectangle.position.x + rectangle.width
   );
 };
-let score = null;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -266,6 +297,87 @@ function animate() {
   });
 
   pacman.update();
+
+  enemies.forEach((enemy) => {
+    enemy.update();
+    const collisions = [];
+    boundaries.forEach((boundary) => {
+      if (
+        !collisions.includes('right') &&
+        circleCollidesWithRectangle({
+          circle: {
+            ...enemy,
+            velocity: {
+              x: 2,
+              y: 0,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        collisions.push("right");
+      }
+
+      if (
+        !collisions.includes('left') &&
+        circleCollidesWithRectangle({
+          circle: {
+            ...enemy,
+            velocity: {
+              x: -2,
+              y: 0,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        collisions.push("left");
+      }
+
+      if (
+        !collisions.includes('top') &&
+        circleCollidesWithRectangle({
+          circle: {
+            ...enemy,
+            velocity: {
+              x: 0,
+              y: -2,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        collisions.push("top");
+      }
+
+      if (
+        !collisions.includes('bottom') &&
+        circleCollidesWithRectangle({
+          circle: {
+            ...enemy,
+            velocity: {
+              x: 0,
+              y: 2,
+            },
+          },
+          rectangle: boundary,
+        })
+      ) {
+        collisions.push("bottom");
+      }
+    });
+    if(collisions.length > enemy.prevCollisions.length){
+
+    }
+
+    if(JSON.stringify(collisions) !== JSON.stringify(enemy.prevCollisions.length)){
+      console.log(collisions);
+      console.log(enemy.prevCollisions)
+    }
+    enemy.prevCollisions = collisions;
+
+  });
+
   if (keys.w.presssed && lastKey === "w") {
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
