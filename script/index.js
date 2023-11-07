@@ -7,14 +7,17 @@ canvas.height = innerHeight;
 class Boundary {
   static width = 40;
   static height = 40;
-  constructor({ position }) {
+  constructor({ position, image }) {
     this.position = position;
     this.width = 40;
     this.height = 40;
+    this.image = image;
   }
   draw() {
-    c.fillStyle = "blue";
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // c.fillStyle = "blue";
+    // c.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    c.drawImage(this.image, this.position.x, this.position.y);
   }
 }
 
@@ -67,20 +70,54 @@ const keys = {
 let lastKey = "";
 
 const map = [
-  ["-", "-", "-", "-", "-", "-", "-"],
-  ["-", " ", " ", " ", " ", "", "-"],
-  ["-", " ", "-", " ", "-", "", "-"],
-  ["-", " ", " ", " ", " ", "", "-"],
-  ["-", " ", "-", "-", "-", " ", "-"],
-  ["-", " ", " ", " ", "-", " ", "-"],
-  ["-", "-", "-", "-", "-", "-", "-"],
+  ["ctl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "ctr"],
+  ["|", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|"],
+  ["|", " ", "[]", "[]", "[]", "[]", "[]", " ", "[]", " ", "|"],
+  ["|", "[]", " ", " ", " ", " ", " ", " ", "[]", " ", "|"],
+  ["|", " ", "", " ", " ", " ", "[]", " ", "[]", "[]", "|"],
+  ["|", " ", " ", "[]", "[]", "[]", "[]", " ", " ", " ", "|"],
+  ["|", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|"],
+  ["|", " ", "[]", "[]", " ", " ", "[]", "[]", "[]", " ", "|"],
+  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
+  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
+  ["|", "[]", " ", "[]", " ", " ", "[]", " ", " ", " ", "|"],
+  ["|", " ", " ", "[]", " ", " ", " ", " ", " ", " ", "|"],
+  ["cbl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "cbr"],
 ];
 
 const boundaries = [];
 
+const createImage = (src) => {
+  const image = new Image();
+  image.src = src;
+  return image;
+};
+
 map.forEach((row, index) => {
   row.forEach((symbol, y) => {
     switch (symbol) {
+      case "|":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeVertical.png"),
+          })
+        );
+        break;
+      case "_":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeHorizontal.png"),
+          })
+        );
+        break;
       case "-":
         boundaries.push(
           new Boundary({
@@ -88,6 +125,63 @@ map.forEach((row, index) => {
               x: Boundary.width * y,
               y: Boundary.height * index,
             },
+            image: createImage("../images/pipeVertical.png"),
+          })
+        );
+        break;
+
+      case "ctr":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeCorner2.png"),
+          })
+        );
+        break;
+      case "ctl":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeCorner1.png"),
+          })
+        );
+        break;
+      case "cbl":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeCorner4.png"),
+          })
+        );
+        break;
+      case "cbr":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/pipeCorner3.png"),
+          })
+        );
+        break;
+        case "[]":
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: Boundary.width * y,
+              y: Boundary.height * index,
+            },
+            image: createImage("../images/block.png"),
           })
         );
         break;
