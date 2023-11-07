@@ -23,7 +23,7 @@ class Pacman {
   constructor({ position, velocity }) {
     this.position = position;
     this.velocity = velocity;
-    this.radius = 13;
+    this.radius = 15;
   }
   draw() {
     c.beginPath();
@@ -38,6 +38,23 @@ class Pacman {
     this.position.y += this.velocity.y;
   }
 }
+
+const keys = {
+  w: {
+    presssed: false,
+  },
+  s: {
+    presssed: false,
+  },
+  a: {
+    presssed: false,
+  },
+  d: {
+    presssed: false,
+  },
+};
+
+let lastKey = "";
 
 const map = [
   ["-", "-", "-", "-", "-", "-"],
@@ -76,28 +93,65 @@ map.forEach((row, index) => {
 });
 function animate() {
   requestAnimationFrame(animate);
-}
-boundaries.forEach((boundary) => {
-  boundary.draw();
-});
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  boundaries.forEach((boundary) => {
+    boundary.draw();
+  });
 
-pacman.update();
+  pacman.update();
+  pacman.velocity.y = 0;
+  pacman.velocity.x = 0;
+  if (keys.w.presssed && lastKey === 'w') {
+    pacman.velocity.y = -5;
+  } else if (keys.a.presssed && lastKey === 'a') {
+    pacman.velocity.x = -5;
+  } else if (keys.s.presssed && lastKey === 's') {
+    pacman.velocity.y = 5;
+  } else if (keys.d.presssed && lastKey === 'd') {
+    pacman.velocity.x = 5;
+  }
+}
+
+animate();
 
 addEventListener("keydown", ({ key }) => {
   switch (key) {
     case "w":
-      pacman.velocity.y = -5;
+      keys.w.presssed = true;
+      lastKey = 'w'
       break;
     case "d":
-      pacman.velocity.x = 5;
+      keys.d.presssed = true;
+      lastKey = 'd'
       break;
     case "s":
-      pacman.velocity.y = 5;
+      keys.s.presssed = true;
+      lastKey = 's'
       break;
     case "a":
-      pacman.velocity.x = -5;
+      keys.a.presssed = true;
+      lastKey = 'a'
       break;
   }
+});
 
-  console.log(pacman.velocity);
+addEventListener("keyup", ({ key }) => {
+  switch (key) {
+    case "w":
+      keys.w.presssed = false;
+      // pacman.velocity.y = 0;
+      break;
+    case "d":
+      keys.d.presssed = false;
+      // pacman.velocity.x = 0;
+      break;
+    case "s":
+      keys.s.presssed = false;
+      // pacman.velocity.y = 0;
+      break;
+    case "a":
+      keys.a.presssed = false;
+      // pacman.velocity.x = 0;
+      break;
+  }
 });
