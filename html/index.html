@@ -3,14 +3,39 @@
   <head>
     <script defer src="../script/index.js"></script>
     <link rel="stylesheet" href="../style/main.css" />
+    <link rel="stylesheet" href="../style/navigation-bar.css" />
+    <script defer src="../script/navigationButtons.js"></script>
+    <script
+      src="https://kit.fontawesome.com/992def5dc8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <div class="navigationBar">
+      <button class="navigationBar__button js-minimizeButton">
+        <i class="fa-solid fa-minus navigationBar__icons"></i>
+      </button>
+
+      <button class="navigationBar__button js-maximizeButton">
+        <i class="fa-regular fa-window-maximize navigationBar__icons"></i>
+      </button>
+
+      <button class="navigationBar__button js-exitButton">
+        <i class="fa-solid fa-xmark navigationBar__icons"></i>
+      </button>
+    </div>
+
     <div class="container">
       <p class="paragraph">
         <span class="paragraph__text">Score: </span
         ><span class="js-score">0</span>
       </p>
     </div>
-    <canvas> </canvas>
+
+    <div class="canvasContainer"><canvas> </canvas></div>
   </body>
 </html>
