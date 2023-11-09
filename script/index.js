@@ -77,6 +77,20 @@ class Food {
   }
 }
 
+class PowerUP {
+  constructor({ position }) {
+    this.position = position;
+    this.radius = 9;
+  }
+  draw() {
+    c.beginPath();
+    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.fillStyle = "white";
+    c.fill();
+    c.closePath();
+  }
+}
+
 const pacman = new Pacman({
   position: {
     x: Boundary.width + Boundary.width / 2,
@@ -102,6 +116,7 @@ const keys = {
     presssed: false,
   },
 };
+const powerUps = [];
 const foods = [];
 const boundaries = [];
 const enemies = [
@@ -139,7 +154,7 @@ const map = [
   ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
   ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
   ["|", "*", "[]", "[]", "*", "[]", "[]", "[]", "[]", "*", "|"],
-  ["|", "*", "[]", "*", "*", "*", "[]", "*", "*", "*", "|"],
+  ["|", "*", "[]", "p", "*", "*", "[]", "*", "*", "*", "|"],
   ["|", "*", "*", "*", "[]", "*", "*", "*", "[]", "*", "|"],
   ["|", "*", "[]", "*", "*", "*", "[]", "*", "[]", "*", "|"],
   ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
@@ -255,6 +270,16 @@ map.forEach((row, index) => {
           })
         );
         break;
+      case "p":
+        powerUps.push(
+          new PowerUP({
+            position: {
+              x: y * Boundary.width + Boundary.width / 2,
+              y: index * Boundary.height + Boundary.height / 2,
+            },
+          })
+        );
+        break;
     }
   });
 });
@@ -275,10 +300,25 @@ const circleCollidesWithRectangle = ({ circle, rectangle }) => {
 let animationID;
 function animate() {
   animationID = requestAnimationFrame(animate);
-  // console.log(animationID);
   c.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let index = foods.length - 1; 0 < index; index--) {
+  for (let index = powerUps.length - 1; 0 <= index; index--) {
+    const powerUp = powerUps[index];
+    powerUp.draw();
+
+    if (
+      Math.hypot(
+        powerUp.position.x - pacman.position.x,
+        powerUp.position.y - pacman.position.y
+      ) <
+      powerUp.radius + pacman.radius
+    ){
+      powerUps.splice(index, 1);
+    }
+
+  }
+
+  for (let index = foods.length - 1; 0 <= index; index--) {
     const food = foods[index];
 
     food.draw();
@@ -290,7 +330,6 @@ function animate() {
       ) <
       food.radius + pacman.radius
     ) {
-      // console.log("touching");
       foods.splice(index, 1);
       score += 10;
       scoreElement.innerText = score;
@@ -407,9 +446,8 @@ function animate() {
       const pathways = enemy.prevCollisions.filter((collision) => {
         return !collisions.includes(collision);
       });
-      // console.log({ pathways });
+
       const direction = pathways[Math.floor(Math.random() * pathways.length)];
-      // console.log(direction);
 
       switch (direction) {
         case "down":
