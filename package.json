@@ -1,9 +1,32 @@
 {
   "name": "pacman-game",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pacman game",
-  "main": "index.js",
-  "scripts": {},
-  "author": "Lariw",
-  "license": "ISC"
+  "license": "MIT",
+  "main": "electron/electron.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": {
+    "name": "Kamil Hajdula"
+  },
+  "devDependencies": {
+    "electron": "^27.0.4",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "icon": "assets/icons/icon_512.icns",
+    "productName": "PacMan",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
 }
