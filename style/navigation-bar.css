@@ -20,15 +20,11 @@
 }
 
 .navigationBar__button:hover {
-  background-color: #55551a;
-}
-
-.navigationBar__button:nth-child(1):active {
-  background-color: #66660b;
+  background-color: crimson;
 }
 
 .navigationBar__button:active {
-  background-color: #fafafa;
+  background-color: hsl(348, 83%, 57%);
 }
 
 .navigationBar__icons {

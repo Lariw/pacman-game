@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script defer src="../script/index.js"></script>
     <link rel="stylesheet" href="../style/main.css" />
     <link rel="stylesheet" href="../style/navigation-bar.css" />
+    <link rel="stylesheet" href="../style/frontPage.css" />
     <script defer src="../script/navigationButtons.js"></script>
+    <script defer src="../script/index.js"></script>
+    <script defer src="../script/fronMenu.js"></script>
     <script
       src="https://kit.fontawesome.com/992def5dc8.js"
       crossorigin="anonymous"
@@ -29,7 +31,29 @@
       </button>
     </div>
 
-    <div class="container">
+    <section>
+      <div class="frontPage">
+        <div class="frontPage__imageContainer">
+          <img
+            class="frontPage__image"
+            src="../img/pacman-frontpage.png"
+            alt="Pacman Ghost"
+          />
+        </div>
+
+        <div class="frontPage__menu">
+          <button class="frontPage_menuButton js-playButton">Play</button>
+          <button class="frontPage_menuButton js-mapsButton">
+            Check all maps
+          </button>
+          <button class="frontPage_menuButton js-settingsButton">
+            Settings
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="scoreContainer">
       <p class="paragraph">
         <span class="paragraph__text">Score: </span
         ><span class="js-score">0</span>

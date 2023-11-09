@@ -1,11 +1,23 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   background-color: #101d28;
 }
 
-.container {
-  background-color: rgb(246, 125, 145);
-  padding: 1px;
+.scoreContainer {
+  background-color: rgb(11, 43, 133);
+  padding: 15px 0;
+  display: none;
+  margin-bottom: 15px;
   color: #000;
 }
 
@@ -22,6 +34,7 @@ canvas {
 .canvasContainer {
   margin: 0 auto;
   display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }

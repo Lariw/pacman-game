@@ -1,0 +1,38 @@
+.frontPage__image {
+  width: 300px;
+}
+
+.frontPage__imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 55px;
+}
+
+.frontPage__menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.frontPage_menuButton {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 20px;
+  display: block;
+  margin: 25px auto;
+  width: 50%;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #270ab8;
+  color: #fff;
+  cursor: pointer;
+}
+
+.frontPage_menuButton:hover {
+  background-color: #310de8;
+}
+
+.frontPage_menuButton:active {
+  background-color: #3c17f2;
+}
