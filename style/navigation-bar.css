@@ -1,0 +1,36 @@
+.navigationBar {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #0d1821;
+  -webkit-app-region: drag;
+}
+
+.navigationBar__button {
+  margin: 2px;
+  padding: 5px;
+  width: 30px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #ededed00;
+  -webkit-app-region: no-drag;
+}
+
+.navigationBar__button:hover {
+  background-color: #55551a;
+}
+
+.navigationBar__button:nth-child(1):active {
+  background-color: #66660b;
+}
+
+.navigationBar__button:active {
+  background-color: #fafafa;
+}
+
+.navigationBar__icons {
+  font-size: 13px;
+}

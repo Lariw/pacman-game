@@ -2,8 +2,8 @@ const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 const scoreElement = document.querySelector(".js-score");
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+canvas.width = 440;
+canvas.height = 520;
 
 class Boundary {
   static width = 40;
@@ -395,7 +395,6 @@ function animate() {
           scoreElement.innerText = score;
         } else {
           cancelAnimationFrame(animationID);
-          alert("loooose");
         }
       }
     }

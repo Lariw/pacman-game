@@ -1,16 +1,27 @@
 body {
   margin: 0;
-  background-color: #000;
+  background-color: #101d28;
 }
 
 .container {
   background-color: rgb(246, 125, 145);
-  width: 100%;
-  padding: 20px;
+  padding: 1px;
   color: #000;
 }
 
 .paragraph {
   font-family: sans-serif;
   font-weight: bold;
+}
+canvas {
+  width: 80%;
+  height: 80%;
+  display: block;
+}
+
+.canvasContainer {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
