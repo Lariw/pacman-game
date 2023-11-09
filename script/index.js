@@ -48,11 +48,12 @@ class Enemy {
     this.radius = 15;
     this.prevCollisions = [];
     this.speed = 1;
+    this.scared = false;
   }
   draw() {
     c.beginPath();
     c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    c.fillStyle = this.color;
+    c.fillStyle = this.scared ? "blue" : this.color;
     c.fill();
     c.closePath();
   }
@@ -312,10 +313,16 @@ function animate() {
         powerUp.position.y - pacman.position.y
       ) <
       powerUp.radius + pacman.radius
-    ){
+    ) {
       powerUps.splice(index, 1);
-    }
+      enemies.forEach((enemy) => {
+        enemy.scared = true;
 
+        setTimeout(() => {
+          enemy.scared = false;
+        }, 5000);
+      });
+    }
   }
 
   for (let index = foods.length - 1; 0 <= index; index--) {
@@ -354,15 +361,24 @@ function animate() {
   enemies.forEach((enemy) => {
     enemy.update();
 
-    if (
-      Math.hypot(
-        enemy.position.x - pacman.position.x,
-        enemy.position.y - pacman.position.y
-      ) <
-      enemy.radius + pacman.radius
-    ) {
-      cancelAnimationFrame(animationID);
-      alert("loooose");
+    for (let index = enemies.length - 1; 0 <= index; index--) {
+      const enemy = enemies[index];
+      if (
+        Math.hypot(
+          enemy.position.x - pacman.position.x,
+          enemy.position.y - pacman.position.y
+        ) <
+        enemy.radius + pacman.radius
+      ) {
+        if (enemy.scared) {
+          enemies.splice(index, 1);
+          score += 100;
+          scoreElement.innerText = score;
+        } else {
+          cancelAnimationFrame(animationID);
+          alert("loooose");
+        }
+      }
     }
 
     const collisions = [];
