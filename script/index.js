@@ -24,18 +24,37 @@ class Pacman {
     this.position = position;
     this.velocity = velocity;
     this.radius = 15;
+    this.radians = 0.75;
+    this.openRate = 0.02;
+    this.rotation = 0;
   }
   draw() {
+    c.save();
+    c.translate(this.position.x, this.position.y);
+    c.rotate(this.rotation);
+    c.translate(-this.position.x, -this.position.y);
     c.beginPath();
-    c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    c.arc(
+      this.position.x,
+      this.position.y,
+      this.radius,
+      this.radians,
+      Math.PI * 2 - this.radians
+    );
+    c.lineTo(this.position.x, this.position.y);
     c.fillStyle = "yellow";
     c.fill();
     c.closePath();
+    c.restore();
   }
   update() {
     this.draw();
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
+
+    if (this.radians < 0 || this.radians > 0.75) this.openRate = -this.openRate;
+
+    this.radians += this.openRate;
   }
 }
 
@@ -575,6 +594,20 @@ function animate() {
         pacman.velocity.x = 5;
       }
     }
+  }
+
+  if (foods.length === 0) {
+    cancelAnimationFrame(animationID);
+  }
+
+  if (pacman.velocity.x > 0) {
+    pacman.rotation = 0;
+  } else if (pacman.velocity.x < 0) {
+    pacman.rotation = Math.PI;
+  } else if (pacman.velocity.y < 0) {
+    pacman.rotation = Math.PI * 1.5;
+  } else if (pacman.velocity.y > 0) {
+    pacman.rotation = Math.PI / 2;
   }
 }
 
