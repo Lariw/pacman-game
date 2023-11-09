@@ -40,12 +40,14 @@ class Pacman {
 }
 
 class Enemy {
-  constructor({ position, velocity, color = "pink" }) {
+  static speed = 1;
+  constructor({ position, velocity, color = "red" }) {
     this.position = position;
     this.velocity = velocity;
-    this.radius = 15;
     this.color = color;
+    this.radius = 15;
     this.prevCollisions = [];
+    this.speed = 1;
   }
   draw() {
     c.beginPath();
@@ -109,7 +111,7 @@ const enemies = [
       y: Boundary.height + Boundary.height / 2,
     },
     velocity: {
-      x: -0.1,
+      x: Enemy.speed,
       y: 0,
     },
   }),
@@ -122,14 +124,14 @@ const map = [
   ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
   ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
   ["|", "*", "*", "*", "[]", "*", "*", "*", "[]", "*", "|"],
-  ["|", "*", "[]", "*", "*", "*", "[]", "*", "[]", "[]", "|"],
+  ["|", "*", "[]", "*", "*", "*", "[]", "*", "[]", "*", "|"],
   ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
   ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
   ["|", "*", "[]", "[]", "*", "[]", "[]", "[]", "[]", "*", "|"],
-  ["|", "*", "*", "[]", "*", "*", "[]", "*", "*", "[]", "|"],
-  ["|", "[]", "*", "[]", "[]", "*", "*", "*", "[]", "*", "|"],
-  ["|", "[]", "*", "*", "*", "*", "[]", "*", "[]", "*", "|"],
-  ["|", "*", "*", "[]", "*", "[]", "*", "*", "*", "*", "|"],
+  ["|", "*", "*", "[]", "*", "*", "[]", "*", "*", "*", "|"],
+  ["|", "*", "*", "[]", "[]", "*", "*", "*", "[]", "*", "|"],
+  ["|", "*", "*", "*", "*", "*", "[]", "*", "[]", "*", "|"],
+  ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
   ["cbl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "cbr"],
 ];
 
@@ -247,20 +249,22 @@ map.forEach((row, index) => {
 });
 
 const circleCollidesWithRectangle = ({ circle, rectangle }) => {
+  const padding = Boundary.width / 2 - circle.radius - 1;
   return (
     circle.position.y - circle.radius + circle.velocity.y <=
-      rectangle.position.y + rectangle.height &&
+      rectangle.position.y + rectangle.height + padding &&
     circle.position.x + circle.radius + circle.velocity.x >=
-      rectangle.position.x &&
+      rectangle.position.x - padding &&
     circle.position.y + circle.radius + circle.velocity.y >=
-      rectangle.position.y &&
+      rectangle.position.y - padding &&
     circle.position.x - circle.radius + circle.velocity.x <=
-      rectangle.position.x + rectangle.width
+      rectangle.position.x + rectangle.width + padding
   );
 };
-
+let animationID;
 function animate() {
-  requestAnimationFrame(animate);
+  animationID = requestAnimationFrame(animate);
+  // console.log(animationID);
   c.clearRect(0, 0, canvas.width, canvas.height);
 
   for (let index = foods.length - 1; 0 < index; index--) {
@@ -275,7 +279,7 @@ function animate() {
       ) <
       food.radius + pacman.radius
     ) {
-      console.log("touching");
+      // console.log("touching");
       foods.splice(index, 1);
       score += 10;
       scoreElement.innerText = score;
@@ -297,18 +301,29 @@ function animate() {
   });
 
   pacman.update();
-
   enemies.forEach((enemy) => {
     enemy.update();
+
+    if (
+      Math.hypot(
+        enemy.position.x - pacman.position.x,
+        enemy.position.y - pacman.position.y
+      ) <
+      enemy.radius + pacman.radius
+    ) {
+      cancelAnimationFrame(animationID);
+      alert("loooose");
+    }
+
     const collisions = [];
     boundaries.forEach((boundary) => {
       if (
-        !collisions.includes('right') &&
+        !collisions.includes("right") &&
         circleCollidesWithRectangle({
           circle: {
             ...enemy,
             velocity: {
-              x: 2,
+              x: enemy.speed,
               y: 0,
             },
           },
@@ -317,14 +332,13 @@ function animate() {
       ) {
         collisions.push("right");
       }
-
       if (
-        !collisions.includes('left') &&
+        !collisions.includes("left") &&
         circleCollidesWithRectangle({
           circle: {
             ...enemy,
             velocity: {
-              x: -2,
+              x: -enemy.speed,
               y: 0,
             },
           },
@@ -333,49 +347,83 @@ function animate() {
       ) {
         collisions.push("left");
       }
-
       if (
-        !collisions.includes('top') &&
+        !collisions.includes("up") &&
         circleCollidesWithRectangle({
           circle: {
             ...enemy,
             velocity: {
               x: 0,
-              y: -2,
+              y: -enemy.speed,
             },
           },
           rectangle: boundary,
         })
       ) {
-        collisions.push("top");
+        collisions.push("up");
       }
-
       if (
-        !collisions.includes('bottom') &&
+        !collisions.includes("down") &&
         circleCollidesWithRectangle({
           circle: {
             ...enemy,
             velocity: {
               x: 0,
-              y: 2,
+              y: enemy.speed,
             },
           },
           rectangle: boundary,
         })
       ) {
-        collisions.push("bottom");
+        collisions.push("down");
       }
     });
-    if(collisions.length > enemy.prevCollisions.length){
-
+    if (collisions.length > enemy.prevCollisions.length) {
+      enemy.prevCollisions = collisions;
     }
 
-    if(JSON.stringify(collisions) !== JSON.stringify(enemy.prevCollisions.length)){
-      console.log(collisions);
-      console.log(enemy.prevCollisions)
-    }
-    enemy.prevCollisions = collisions;
+    if (JSON.stringify(collisions) !== JSON.stringify(enemy.prevCollisions)) {
+      if (enemy.velocity.x > 0) {
+        enemy.prevCollisions.push("right");
+      } else if (enemy.velocity.x < 0) {
+        enemy.prevCollisions.push("left");
+      } else if (enemy.velocity.y < 0) {
+        enemy.prevCollisions.push("up");
+      } else if (enemy.velocity.y > 0) {
+        enemy.prevCollisions.push("down");
+      }
 
+      const pathways = enemy.prevCollisions.filter((collision) => {
+        return !collisions.includes(collision);
+      });
+      // console.log({ pathways });
+      const direction = pathways[Math.floor(Math.random() * pathways.length)];
+      // console.log(direction);
+
+      switch (direction) {
+        case "down":
+          enemy.velocity.y = enemy.speed;
+          enemy.velocity.x = 0;
+          break;
+
+        case "up":
+          enemy.velocity.y = -enemy.speed;
+          enemy.velocity.x = 0;
+          break;
+
+        case "left":
+          enemy.velocity.y = 0;
+          enemy.velocity.x = -enemy.speed;
+          break;
+
+        case "right":
+          enemy.velocity.y = 0;
+          enemy.velocity.x = enemy.speed;
+          break;
+      }
+
+      enemy.prevCollisions = [];
+    }
   });
 
   if (keys.w.presssed && lastKey === "w") {
@@ -387,7 +435,7 @@ function animate() {
             ...pacman,
             velocity: {
               x: 0,
-              y: -2,
+              y: -5,
             },
           },
           rectangle: boundary,
@@ -396,7 +444,7 @@ function animate() {
         pacman.velocity.y = 0;
         break;
       } else {
-        pacman.velocity.y = -2;
+        pacman.velocity.y = -5;
       }
     }
   } else if (keys.a.presssed && lastKey === "a") {
@@ -407,7 +455,7 @@ function animate() {
           circle: {
             ...pacman,
             velocity: {
-              x: -2,
+              x: -5,
               y: 0,
             },
           },
@@ -417,7 +465,7 @@ function animate() {
         pacman.velocity.x = 0;
         break;
       } else {
-        pacman.velocity.x = -2;
+        pacman.velocity.x = -5;
       }
     }
   } else if (keys.s.presssed && lastKey === "s") {
@@ -429,7 +477,7 @@ function animate() {
             ...pacman,
             velocity: {
               x: 0,
-              y: 2,
+              y: 5,
             },
           },
           rectangle: boundary,
@@ -438,7 +486,7 @@ function animate() {
         pacman.velocity.y = 0;
         break;
       } else {
-        pacman.velocity.y = 2;
+        pacman.velocity.y = 5;
       }
     }
   } else if (keys.d.presssed && lastKey === "d") {
@@ -449,7 +497,7 @@ function animate() {
           circle: {
             ...pacman,
             velocity: {
-              x: 2,
+              x: 5,
               y: 0,
             },
           },
@@ -459,7 +507,7 @@ function animate() {
         pacman.velocity.x = 0;
         break;
       } else {
-        pacman.velocity.x = 2;
+        pacman.velocity.x = 5;
       }
     }
   }
