@@ -414,6 +414,7 @@ const startGame = () => {
             scoreElement.innerText = score;
           } else {
             cancelAnimationFrame(animationID);
+            showGameMessage()
           }
         }
       }
@@ -616,6 +617,7 @@ const startGame = () => {
 
     if (foods.length === 0) {
       cancelAnimationFrame(animationID);
+      showGameMessage()
     }
 
     if (pacman.velocity.x > 0) {

@@ -1,0 +1,50 @@
+.gameMessage {
+  color: #fff;
+  width: 300px;
+  height: 170px;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  display: none;
+}
+
+.gameMessage__barContainer {
+  background-color: #040457;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.gameMessage__closeMessage {
+    cursor: pointer;
+}
+
+.gameMessage__contentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+}
+
+.gameMessage__content {
+  font-family: "Pixelify Sans", sans-serif;
+}
+
+.gameMessage__nextLvBtn {
+  display: block;
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 700;
+  margin: 0 auto;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: blueviolet;
+}
+
+.gameMessage__nextLvBtn:hover {
+  background-color: hsl(271, 76%, 63%);
+}

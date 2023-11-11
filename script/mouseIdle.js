@@ -2,9 +2,9 @@ let mouseMoveTimeout;
 
 document.addEventListener('mousemove', () => {
     console.log('.');
-    document.body.style.cursor = 'auto';  // Przywróć kursor
+    document.body.style.cursor = 'auto'; 
     clearTimeout(mouseMoveTimeout);
     mouseMoveTimeout = setTimeout(() => {
-        document.body.style.cursor = 'none';  // Ukryj kursor po 2 sekundach braku ruchu
+        document.body.style.cursor = 'none';
     }, 2000);
 });

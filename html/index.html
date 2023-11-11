@@ -5,10 +5,12 @@
     <link rel="stylesheet" href="../style/navigation-bar.css" />
     <link rel="stylesheet" href="../style/frontPage.css" />
     <link rel="stylesheet" href="../style/settings.css" />
+    <link rel="stylesheet" href="../style/messages.css" />
     <script defer src="../script/navigationButtons.js"></script>
     <script defer src="../script/index.js"></script>
     <script defer src="../script/frontMenu.js"></script>
     <script defer src="../script/mouseIdle.js"></script>
+    <script defer src="../script/gameMessage.js"></script>
     <script
       src="https://kit.fontawesome.com/992def5dc8.js"
       crossorigin="anonymous"
@@ -96,5 +98,24 @@
     </div>
 
     <div class="canvasContainer"><canvas> </canvas></div>
+
+    <div class="gameMessage js-gameMessage">
+      <div class="gameMessage__barContainer">
+        <div class="gameMessage__closeMessage js-closeGameMessage">
+          <i
+            class="fa-solid fa-circle-xmark"
+            style="color: #d70909; padding: 5px"
+          ></i>
+        </div>
+      </div>
+
+      <div class="gameMessage__contentContainer">
+        <div class="gameMessage__content">You win !</div>
+      </div>
+
+      <div>
+        <button class="gameMessage__nextLvBtn js-gameMessage__nextLV">NEXT LV</button>
+      </div>
+    </div>
   </body>
 </html>
