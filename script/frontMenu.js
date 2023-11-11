@@ -7,4 +7,5 @@ startButton.addEventListener("click", () => {
   canvaContainer.style.display = "flex";
   scoreContainer.style.display = "block";
   frontPageContainer.style.display = "none";
+  startGame();
 });
