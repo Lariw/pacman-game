@@ -1,6 +1,7 @@
 .settings__menu {
     background-color: #b5b4bb;
     height: 410px;
+    display: none;
   }
   
   .settings__gameControls {

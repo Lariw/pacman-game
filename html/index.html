@@ -52,10 +52,9 @@
       </div>
 
       <div class="settings__menu">
-
         <div class="settings__returnContainer">
           <button class="settings__returnBtn js-returnBtn">
-            <i class=" return__icon fa-solid fa-circle-arrow-left fa-xl"></i>
+            <i class="return__icon fa-solid fa-circle-arrow-left fa-xl"></i>
           </button>
         </div>
 
@@ -73,17 +72,26 @@
             ><img
               class="settings__gameControls"
               src="../assets/key icons/wsad_keys.png"
-              alt="wsad keys" /><input class="js-keyControl-wsad" checked type="radio" name="controls"
+              alt="wsad keys" /><input
+              class="js-keyControl-wsad"
+              checked
+              type="radio"
+              name="controls"
           /></label>
         </div>
       </div>
     </section>
 
-    <div class="scoreContainer">
-      <p class="paragraph">
-        <span class="paragraph__text">Score: </span
-        ><span class="js-score">0</span>
-      </p>
+    <div class="topContainer">
+      <div class="scoreContainer">
+        <div>Score: <span class="js-score">0</span></div>
+      </div>
+
+      <div class="lifeCount">
+        <div><i class="fa-solid fa-heart"></i></div>
+        <div><i class="fa-solid fa-heart"></i></div>
+        <div><i class="fa-solid fa-heart"></i></div>
+      </div>
     </div>
 
     <div class="canvasContainer"><canvas> </canvas></div>

@@ -1,6 +1,6 @@
 const startButton = document.querySelector(".js-playButton");
 const canvaContainer = document.querySelector(".canvasContainer");
-const scoreContainer = document.querySelector(".scoreContainer");
+const scoreContainer = document.querySelector(".topContainer");
 const frontPageContainer = document.querySelector(".frontPage");
 const frontPageMenu = document.querySelector(".frontPage__menu");
 const settingsBtn = document.querySelector(".js-settingsButton");
@@ -13,7 +13,7 @@ const keyControlArrow = document.querySelector(".js-keyControl-arrow");
 
 startButton.addEventListener("click", () => {
   canvaContainer.style.display = "flex";
-  scoreContainer.style.display = "block";
+  scoreContainer.style.display = "flex";
   menus.style.display = "none";
   startGame();
 });
