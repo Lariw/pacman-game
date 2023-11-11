@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  cursor: auto;
   margin: 0;
   background-color: #101d28;
 }
