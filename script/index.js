@@ -1,7 +1,24 @@
 const startGame = () => {
+  let keyUp;
+  let keyDown;
+  let keyLeft;
+  let keyRight;
+
   const canvas = document.querySelector("canvas");
   const c = canvas.getContext("2d");
   const scoreElement = document.querySelector(".js-score");
+
+  if (keyControlWSAD.checked) {
+    keyUp = "w";
+    keyDown = "s";
+    keyLeft = "a";
+    keyRight = "d";
+  } else if (keyControlArrow.checked) {
+    keyUp = "ArrowUp";
+    keyDown = "ArrowDown";
+    keyLeft = "ArrowLeft";
+    keyRight = "ArrowRight";
+  }
 
   canvas.width = 440;
   canvas.height = 520;
@@ -511,7 +528,7 @@ const startGame = () => {
       }
     });
 
-    if (keys.w.presssed && lastKey === "w") {
+    if (keys.w.presssed && lastKey === keyUp) {
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -532,7 +549,7 @@ const startGame = () => {
           pacman.velocity.y = -5;
         }
       }
-    } else if (keys.a.presssed && lastKey === "a") {
+    } else if (keys.a.presssed && lastKey === keyLeft) {
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -553,7 +570,7 @@ const startGame = () => {
           pacman.velocity.x = -5;
         }
       }
-    } else if (keys.s.presssed && lastKey === "s") {
+    } else if (keys.s.presssed && lastKey === keyDown) {
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -574,7 +591,7 @@ const startGame = () => {
           pacman.velocity.y = 5;
         }
       }
-    } else if (keys.d.presssed && lastKey === "d") {
+    } else if (keys.d.presssed && lastKey === keyRight) {
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -616,40 +633,40 @@ const startGame = () => {
 
   addEventListener("keydown", ({ key }) => {
     switch (key) {
-      case "w":
+      case keyUp:
         keys.w.presssed = true;
-        lastKey = "w";
+        lastKey = keyUp;
         break;
-      case "d":
+      case keyRight:
         keys.d.presssed = true;
-        lastKey = "d";
+        lastKey = keyRight;
         break;
-      case "s":
+      case keyDown:
         keys.s.presssed = true;
-        lastKey = "s";
+        lastKey = keyDown;
         break;
-      case "a":
+      case keyLeft:
         keys.a.presssed = true;
-        lastKey = "a";
+        lastKey = keyLeft;
         break;
     }
   });
 
   addEventListener("keyup", ({ key }) => {
     switch (key) {
-      case "w":
+      case keyUp:
         keys.w.presssed = false;
 
         break;
-      case "d":
+      case keyRight:
         keys.d.presssed = false;
 
         break;
-      case "s":
+      case keyDown:
         keys.s.presssed = false;
 
         break;
-      case "a":
+      case keyLeft:
         keys.a.presssed = false;
 
         break;

@@ -1,0 +1,25 @@
+.settings__menu {
+    background-color: #b5b4bb;
+    height: 410px;
+  }
+  
+  .settings__gameControls {
+    width: 100px;
+  }
+  
+  .options {
+    display: flex;
+    justify-content:space-around;
+  }
+  
+  .settings__title {
+    display: block;
+    text-align: center;
+  }
+  
+  .settings__returnBtn {
+    padding: 15px;
+    background-color: hsla(249, 5%, 72%, 0);
+    border: none;
+    cursor: pointer;
+  }

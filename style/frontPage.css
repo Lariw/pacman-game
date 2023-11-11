@@ -36,3 +36,7 @@
 .frontPage_menuButton:active {
   background-color: #3c17f2;
 }
+
+.settings__menu {
+  display: none;
+}

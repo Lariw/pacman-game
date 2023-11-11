@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="../style/main.css" />
     <link rel="stylesheet" href="../style/navigation-bar.css" />
     <link rel="stylesheet" href="../style/frontPage.css" />
+    <link rel="stylesheet" href="../style/settings.css" />
     <script defer src="../script/navigationButtons.js"></script>
     <script defer src="../script/index.js"></script>
     <script defer src="../script/frontMenu.js"></script>
@@ -31,7 +32,7 @@
       </button>
     </div>
 
-    <section>
+    <section class="menus">
       <div class="frontPage">
         <div class="frontPage__imageContainer">
           <img
@@ -40,15 +41,40 @@
             alt="Pacman Ghost"
           />
         </div>
+      </div>
 
-        <div class="frontPage__menu">
-          <button class="frontPage_menuButton js-playButton">Play</button>
-          <button class="frontPage_menuButton js-mapsButton">
-            Check all maps
+      <div class="frontPage__menu">
+        <button class="frontPage_menuButton js-playButton">Play</button>
+        <button class="frontPage_menuButton js-mapsButton">
+          Check all maps
+        </button>
+        <button class="frontPage_menuButton js-settingsButton">Settings</button>
+      </div>
+
+      <div class="settings__menu">
+
+        <div class="settings__returnContainer">
+          <button class="settings__returnBtn js-returnBtn">
+            <i class=" return__icon fa-solid fa-circle-arrow-left fa-xl"></i>
           </button>
-          <button class="frontPage_menuButton js-settingsButton">
-            Settings
-          </button>
+        </div>
+
+        <div class="options">
+          <h2 class="settings__title">Game controls</h2>
+          <label
+            ><img
+              class="settings__gameControls"
+              src="../assets/key icons/arrows_keys.png"
+              alt="arrow keys"
+            />
+            <input type="radio" class="js-keyControl-arrow" name="controls" />
+          </label>
+          <label
+            ><img
+              class="settings__gameControls"
+              src="../assets/key icons/wsad_keys.png"
+              alt="wsad keys" /><input class="js-keyControl-wsad" checked type="radio" name="controls"
+          /></label>
         </div>
       </div>
     </section>
