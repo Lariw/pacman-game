@@ -4,6 +4,21 @@ const startGame = () => {
   let keyLeft;
   let keyRight;
 
+  const keys = {
+    w: {
+      presssed: false,
+    },
+    s: {
+      presssed: false,
+    },
+    a: {
+      presssed: false,
+    },
+    d: {
+      presssed: false,
+    },
+  };
+
   const canvas = document.querySelector("canvas");
   const c = canvas.getContext("2d");
   const scoreElement = document.querySelector(".js-score");
@@ -141,20 +156,6 @@ const startGame = () => {
     },
   });
 
-  const keys = {
-    w: {
-      presssed: false,
-    },
-    s: {
-      presssed: false,
-    },
-    a: {
-      presssed: false,
-    },
-    d: {
-      presssed: false,
-    },
-  };
   const powerUps = [];
   const foods = [];
   const boundaries = [];
@@ -186,7 +187,7 @@ const startGame = () => {
 
   const map = [
     ["ctl", "_", "_", "_", "_", "_", "_", "_", "_", "_", "ctr"],
-    ["|", "*", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
+    ["|", " ", "*", "*", "*", "*", "*", "*", "*", "*", "|"],
     ["|", "*", "[]", "[]", "[]", "[]", "[]", "*", "[]", "*", "|"],
     ["|", "*", "*", "*", "[]", "*", "*", "*", "[]", "*", "|"],
     ["|", "*", "[]", "*", "*", "*", "[]", "*", "[]", "*", "|"],
@@ -338,7 +339,15 @@ const startGame = () => {
   };
   let animationID;
   function animate() {
-    animationID = requestAnimationFrame(animate);
+    if (animationID == 5) {
+      cancelAnimationFrame(animationID);
+      beforeStartSound.play();
+      setTimeout(() => {
+        animationID = requestAnimationFrame(animate);
+      }, 4000);
+    } else {
+      animationID = requestAnimationFrame(animate);
+    }
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let index = powerUps.length - 1; 0 <= index; index--) {
@@ -353,6 +362,7 @@ const startGame = () => {
         powerUp.radius + pacman.radius
       ) {
         powerUps.splice(index, 1);
+        fruitSound.play();
         enemies.forEach((enemy) => {
           enemy.scared = true;
 
@@ -360,6 +370,8 @@ const startGame = () => {
             enemy.scared = false;
           }, 5000);
         });
+
+        cutSceneSound.play();
       }
     }
 
@@ -378,6 +390,7 @@ const startGame = () => {
         foods.splice(index, 1);
         score += 10;
         scoreElement.innerText = score;
+        chompSound.play();
       }
     }
 
@@ -396,6 +409,7 @@ const startGame = () => {
     });
 
     pacman.update();
+
     enemies.forEach((enemy) => {
       enemy.update();
 
@@ -412,9 +426,11 @@ const startGame = () => {
             enemies.splice(index, 1);
             score += 100;
             scoreElement.innerText = score;
+            ghostAudio.play();
           } else {
             cancelAnimationFrame(animationID);
-            showGameMessage()
+            showGameMessage();
+            deathSound.play();
           }
         }
       }
@@ -617,7 +633,8 @@ const startGame = () => {
 
     if (foods.length === 0) {
       cancelAnimationFrame(animationID);
-      showGameMessage()
+      showGameMessage();
+      winningGameSound.play();
     }
 
     if (pacman.velocity.x > 0) {

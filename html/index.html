@@ -39,7 +39,7 @@
       <div class="frontPage">
         <div class="frontPage__imageContainer">
           <img
-            class="frontPage__image"
+            class="frontPage__image js-frontPage_image"
             src="../img/pacman-frontpage.png"
             alt="Pacman Ghost"
           />
@@ -114,8 +114,27 @@
       </div>
 
       <div>
-        <button class="gameMessage__nextLvBtn js-gameMessage__nextLV">NEXT LV</button>
+        <button class="gameMessage__nextLvBtn js-gameMessage__nextLV">
+          NEXT LV
+        </button>
       </div>
     </div>
+
+    <audio
+      class="introAudio"
+      loop
+      src="../assets/audio/Pacman_background.mp3"
+    ></audio>
+
+    <audio class="ghostSound" src="../assets/audio/Ghost.mp3"></audio>
+    <audio class="beforeStartSound" src="../assets/audio/Intro.mp3"></audio>
+    <audio class="deathSound" src="../assets/audio/Death.mp3"></audio>
+    <audio class="cutSceneSound" src="../assets/audio/Cutscene.mp3"></audio>
+    <audio class="fruitSound" src="../assets/audio/Fruit.mp3"></audio>
+    <audio class="chompSound" src="../assets/audio/Chomp.mp3"></audio>
+    <audio
+      class="winningGameSound"
+      src="../assets/audio/winningGame.mp3"
+    ></audio>
   </body>
 </html>

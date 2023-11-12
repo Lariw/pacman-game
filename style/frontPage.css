@@ -1,5 +1,6 @@
 .frontPage__image {
   width: 300px;
+  cursor: pointer;
 }
 
 .frontPage__imageContainer {
