@@ -19,20 +19,36 @@ const fruitSound = document.querySelector(".fruitSound");
 const chompSound = document.querySelector(".chompSound");
 const winningGameSound = document.querySelector(".winningGameSound");
 const gameOverSound = document.querySelector(".gameOverSound");
-
 const musicVolumeInput = document.querySelector(".musicVolumeInput");
 const soundsVolumeInput = document.querySelector(".soundsVolumeInput");
+
+const sounds = [
+  ghostAudio,
+  deathSound,
+  gameOverSound,
+  winningGameSound,
+  cutSceneSound,
+  chompSound,
+  fruitSound,
+  beforeStartSound,
+];
+
+setTimeout(() => {
+  readConfig();
+  introAudio.play();
+}, 1000);
 
 musicVolumeInput.addEventListener("change", () => {
   introAudio.volume = musicVolumeInput.value;
 });
 
 soundsVolumeInput.addEventListener("change", () => {
-  ghostAudio.volume = soundsVolumeInput.value;
+  sounds.forEach((sound) => {
+    sound.volume = soundsVolumeInput.value;
+  });
+
   ghostAudio.play();
 });
-
-introAudio.play();
 
 startButton.addEventListener("click", () => {
   canvaContainer.style.display = "flex";
@@ -48,8 +64,17 @@ settingsBtn.addEventListener("click", () => {
 });
 
 returnBtn.addEventListener("click", () => {
+  let control;
   frontPageMenu.style.display = "block";
   settingSection.style.display = "none";
+
+  if (keyControlWSAD.checked) {
+    control = "wsad";
+  } else if (keyControlArrow.checked) {
+    control = "arrow";
+  }
+
+  saveConfig(control, musicVolumeInput.value, soundsVolumeInput.value);
 });
 
 mainImage.addEventListener("click", () => {
