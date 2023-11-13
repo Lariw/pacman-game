@@ -33,6 +33,12 @@
   font-family: "Pixelify Sans", sans-serif;
 }
 
+.gameMessage__btns {
+  display: flex;
+  justify-content:space-between
+  
+}
+
 .gameMessage__nextLvBtn {
   display: block;
   font-family: "Pixelify Sans", sans-serif;

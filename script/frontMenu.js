@@ -18,6 +18,7 @@ const cutSceneSound = document.querySelector(".cutSceneSound");
 const fruitSound = document.querySelector(".fruitSound");
 const chompSound = document.querySelector(".chompSound");
 const winningGameSound = document.querySelector(".winningGameSound");
+const gameOverSound = document.querySelector('.gameOverSound');
 
 introAudio.play();
 

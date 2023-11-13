@@ -428,10 +428,12 @@ const startGame = () => {
             scoreElement.innerText = score;
             ghostAudio.play();
           } else {
+            //console.log('enemy killed u')
             cancelAnimationFrame(animationID);
-            showGameMessage();
-            deathSound.play();
+            // showGameMessage('lose');
+            // deathSound.play();
           }
+          collisionHandled = true;
         }
       }
 
@@ -545,6 +547,12 @@ const startGame = () => {
       }
     });
 
+    if (collisionHandled) {
+      collisionHandled = false;
+      showGameMessage("lose");
+      deathSound.play();
+    }
+
     if (keys.w.presssed && lastKey === keyUp) {
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
@@ -633,7 +641,7 @@ const startGame = () => {
 
     if (foods.length === 0) {
       cancelAnimationFrame(animationID);
-      showGameMessage();
+      showGameMessage("win");
       winningGameSound.play();
     }
 
