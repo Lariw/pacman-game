@@ -62,25 +62,51 @@
         </div>
 
         <div class="options">
-          <h2 class="settings__title">Game controls</h2>
-          <label
-            ><img
-              class="settings__gameControls"
-              src="../assets/key icons/arrows_keys.png"
-              alt="arrow keys"
-            />
-            <input type="radio" class="js-keyControl-arrow" name="controls" />
-          </label>
-          <label
-            ><img
-              class="settings__gameControls"
-              src="../assets/key icons/wsad_keys.png"
-              alt="wsad keys" /><input
-              class="js-keyControl-wsad"
-              checked
-              type="radio"
-              name="controls"
-          /></label>
+          <div class="options__gameControls">
+            <h2 class="settings__title">Game controls</h2>
+            <label
+              ><img
+                class="settings__gameControls"
+                src="../assets/key icons/arrows_keys.png"
+                alt="arrow keys"
+              />
+              <input type="radio" class="js-keyControl-arrow" name="controls" />
+            </label>
+            <label
+              ><img
+                class="settings__gameControls"
+                src="../assets/key icons/wsad_keys.png"
+                alt="wsad keys" /><input
+                class="js-keyControl-wsad"
+                checked
+                type="radio"
+                name="controls"
+            /></label>
+          </div>
+
+          <div class="options__gameControls">
+            <h2 class="settings__title">Music volume</h2>
+            <label
+              ><input
+                class="options__inputRange musicVolumeInput"
+                min="0"
+                max="1"
+                step="0.1"
+                type="range"
+            /></label>
+          </div>
+
+          <div class="options__gameControls">
+            <h2 class="settings__title">Sounds volume</h2>
+            <label
+              ><input
+                class="options__inputRange soundsVolumeInput"
+                min="0"
+                max="1"
+                step="0.1"
+                type="range"
+            /></label>
+          </div>
         </div>
       </div>
     </section>

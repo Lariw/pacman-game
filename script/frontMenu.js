@@ -18,7 +18,19 @@ const cutSceneSound = document.querySelector(".cutSceneSound");
 const fruitSound = document.querySelector(".fruitSound");
 const chompSound = document.querySelector(".chompSound");
 const winningGameSound = document.querySelector(".winningGameSound");
-const gameOverSound = document.querySelector('.gameOverSound');
+const gameOverSound = document.querySelector(".gameOverSound");
+
+const musicVolumeInput = document.querySelector(".musicVolumeInput");
+const soundsVolumeInput = document.querySelector(".soundsVolumeInput");
+
+musicVolumeInput.addEventListener("change", () => {
+  introAudio.volume = musicVolumeInput.value;
+});
+
+soundsVolumeInput.addEventListener("change", () => {
+  ghostAudio.volume = soundsVolumeInput.value;
+  ghostAudio.play();
+});
 
 introAudio.play();
 

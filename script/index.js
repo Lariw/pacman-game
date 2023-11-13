@@ -170,6 +170,7 @@ const startGame = () => {
         y: 0,
       },
     }),
+
     new Enemy({
       position: {
         x: Boundary.width * 6 + Boundary.width / 2,
@@ -179,7 +180,6 @@ const startGame = () => {
         x: Enemy.speed,
         y: 0,
       },
-      color: "pink",
     }),
   ];
   let score = null;

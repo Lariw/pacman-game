@@ -1,26 +1,65 @@
 .settings__menu {
-    background-color: #b5b4bb;
-    height: 410px;
-    display: none;
-  }
-  
-  .settings__gameControls {
-    width: 100px;
-  }
-  
-  .options {
-    display: flex;
-    justify-content:space-around;
-  }
-  
-  .settings__title {
-    display: block;
-    text-align: center;
-  }
-  
-  .settings__returnBtn {
-    padding: 15px;
-    background-color: hsla(249, 5%, 72%, 0);
-    border: none;
-    cursor: pointer;
-  }
+  background-color: #0ba087;
+  height: 410px;
+  display: none;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 15px;
+  -webkit-box-shadow: 10px 10px 39px -1px rgba(235, 237, 237, 1);
+  -moz-box-shadow: 10px 10px 39px -1px rgba(235, 237, 237, 1);
+  box-shadow: 10px 10px 39px -1px #0ba087;
+}
+
+.settings__gameControls {
+  width: 100px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.options__gameControls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.settings__title {
+  display: block;
+  text-align: center;
+}
+
+.settings__returnBtn {
+  padding: 15px;
+  background-color: hsla(249, 5%, 72%, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.options__inputRange {
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+  -webkit-appearance: none;
+}
+.options__inputRange::-webkit-slider-runnable-track {
+  background: #053a5f;
+  height: 0.5rem;
+}
+
+.options__inputRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -12px;
+  background-color: #5cd5eb;
+  height: 2rem;
+  width: 1rem;
+}
+
+.options__inputRange:focus::-webkit-slider-thumb {
+  border: 1px solid #053a5f;
+  outline: 3px solid #053a5f;
+  outline-offset: 0.125rem;
+}
