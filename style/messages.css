@@ -6,20 +6,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  border: 10px solid #040457;
   transform: translate(-50%, -50%);
   border-radius: 5px;
   display: none;
-}
-
-.gameMessage__barContainer {
-  background-color: #040457;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.gameMessage__closeMessage {
-    cursor: pointer;
 }
 
 .gameMessage__contentContainer {

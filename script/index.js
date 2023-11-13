@@ -432,8 +432,8 @@ const startGame = () => {
             cancelAnimationFrame(animationID);
             // showGameMessage('lose');
             // deathSound.play();
+            collisionHandled = true;
           }
-          collisionHandled = true;
         }
       }
 
@@ -546,7 +546,6 @@ const startGame = () => {
         enemy.prevCollisions = [];
       }
     });
-
     if (collisionHandled) {
       collisionHandled = false;
       showGameMessage("lose");

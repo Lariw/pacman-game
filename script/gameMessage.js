@@ -1,5 +1,4 @@
 const gameMessage = document.querySelector(".js-gameMessage");
-const closeMessageBtn = document.querySelector(".js-closeGameMessage");
 const returnToMenu = document.querySelector(".js-gameMessage__returnMenu");
 const messageContent = document.querySelector(".js-message__content");
 const retryButton = document.querySelector(".js-gameMessage__retry");
@@ -11,10 +10,6 @@ const life2 = document.querySelector(".life2");
 const life3 = document.querySelector(".life3");
 let hearts = 3;
 let collisionHandled = false;
-
-closeMessageBtn.addEventListener("click", () => {
-  gameMessage.style.display = "none";
-});
 
 const showGameMessage = (message) => {
   gameMessage.style.display = "block";
