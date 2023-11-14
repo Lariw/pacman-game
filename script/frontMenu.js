@@ -21,7 +21,8 @@ const winningGameSound = document.querySelector(".winningGameSound");
 const gameOverSound = document.querySelector(".gameOverSound");
 const musicVolumeInput = document.querySelector(".musicVolumeInput");
 const soundsVolumeInput = document.querySelector(".soundsVolumeInput");
-
+const pauseGame = document.querySelector(".js-pauseGame");
+const playGame = document.querySelector(".js-playGame");
 const sounds = [
   ghostAudio,
   deathSound,

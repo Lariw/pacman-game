@@ -1,4 +1,19 @@
+let animationID;
+
 const startGame = () => {
+  pauseGame.addEventListener("click", () => {
+    cancelAnimationFrame(animationID);
+
+    pauseGame.style.display = "none";
+    playGame.style.display = "block";
+  });
+
+  playGame.addEventListener("click", () => {
+    pauseGame.style.display = "block";
+    playGame.style.display = "none";
+    animate();
+  });
+
   let keyUp;
   let keyDown;
   let keyLeft;
@@ -337,7 +352,7 @@ const startGame = () => {
         rectangle.position.x + rectangle.width + padding
     );
   };
-  let animationID;
+  //let animationID;
   function animate() {
     if (animationID == 5) {
       cancelAnimationFrame(animationID);

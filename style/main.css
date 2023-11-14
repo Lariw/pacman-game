@@ -54,6 +54,20 @@ canvas {
   color: #ffffff;
 }
 
+.pauseContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pauseIcon {
+  cursor: pointer;
+}
+
+.js-playGame {
+  display: none;
+}
+
 .lifeCount {
   width: 70px;
   display: flex;
@@ -61,5 +75,3 @@ canvas {
   justify-content: space-around;
   align-items: center;
 }
-
-
