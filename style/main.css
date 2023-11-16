@@ -75,3 +75,45 @@ canvas {
   justify-content: space-around;
   align-items: center;
 }
+
+.customize_gameControl {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.input_gameControl {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  height: 120px;
+  width: 150px;
+  padding: 20px;
+}
+
+.customize_gameControl:hover input ~ .checkmark {
+  border: 5px solid rgba(0, 0, 0, 0.511);
+  border-radius: 50%;
+  border-left: none;
+}
+
+.customize_gameControl input:checked ~ .checkmark {
+  border: 7px solid black;
+  border-radius: 50%;
+  border-left: none;
+}
