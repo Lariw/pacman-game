@@ -1,6 +1,35 @@
 let animationID;
-
+let isPacmanAlive = true;
 const startGame = () => {
+  let fallSpeed = 2;
+
+  const drawBackground = () => {
+    boundaries.forEach((boundary) => {
+      boundary.draw();
+    });
+
+    enemies.forEach((enemy) => {
+      enemy.draw();
+    });
+  };
+
+  function fallAnimation() {
+    drawBackground();
+    c.clearRect(
+      pacman.position.x - pacman.radius - 1,
+      pacman.position.y - pacman.radius - 1,
+      pacman.radius * 2 + 2,
+      pacman.radius * 2 + 2
+    );
+    pacman.position.y += fallSpeed;
+    pacman.rotation = Math.PI / 2;
+    pacman.draw();
+
+    if (pacman.position.y < canvas.height) {
+      requestAnimationFrame(fallAnimation);
+    }
+  }
+
   pauseGame.addEventListener("click", () => {
     cancelAnimationFrame(animationID);
 
@@ -166,8 +195,8 @@ const startGame = () => {
       y: Boundary.height + Boundary.height / 2,
     },
     velocity: {
-      x: 0,
-      y: 0,
+      x: 0.2,
+      y: 0.2,
     },
   });
 
@@ -443,11 +472,12 @@ const startGame = () => {
             scoreElement.innerText = score;
             ghostAudio.play();
           } else {
-            //console.log('enemy killed u')
-            cancelAnimationFrame(animationID);
-            // showGameMessage('lose');
-            // deathSound.play();
+            pacman.velocity.x = 0;
+            pacman.velocity.y = 0;
+            isPacmanAlive = false;
             collisionHandled = true;
+            fallAnimation();
+            cancelAnimationFrame(animationID);
           }
         }
       }
@@ -576,7 +606,7 @@ const startGame = () => {
               ...pacman,
               velocity: {
                 x: 0,
-                y: -5,
+                y: -2,
               },
             },
             rectangle: boundary,
@@ -585,7 +615,7 @@ const startGame = () => {
           pacman.velocity.y = 0;
           break;
         } else {
-          pacman.velocity.y = -5;
+          pacman.velocity.y = -2;
         }
       }
     } else if (keys.a.presssed && lastKey === keyLeft) {
@@ -596,7 +626,7 @@ const startGame = () => {
             circle: {
               ...pacman,
               velocity: {
-                x: -5,
+                x: -2,
                 y: 0,
               },
             },
@@ -606,7 +636,7 @@ const startGame = () => {
           pacman.velocity.x = 0;
           break;
         } else {
-          pacman.velocity.x = -5;
+          pacman.velocity.x = -2;
         }
       }
     } else if (keys.s.presssed && lastKey === keyDown) {
@@ -618,7 +648,7 @@ const startGame = () => {
               ...pacman,
               velocity: {
                 x: 0,
-                y: 5,
+                y: 2,
               },
             },
             rectangle: boundary,
@@ -627,7 +657,7 @@ const startGame = () => {
           pacman.velocity.y = 0;
           break;
         } else {
-          pacman.velocity.y = 5;
+          pacman.velocity.y = 2;
         }
       }
     } else if (keys.d.presssed && lastKey === keyRight) {
@@ -648,7 +678,7 @@ const startGame = () => {
           pacman.velocity.x = 0;
           break;
         } else {
-          pacman.velocity.x = 5;
+          pacman.velocity.x = 2;
         }
       }
     }
