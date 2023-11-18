@@ -17,6 +17,7 @@ const showGameMessage = (message) => {
   if (message == "lose") {
     messageContent.innerText = "You lose !";
     winElements.style.display = "none";
+    loseElements.style.display = "flex";
     hearts -= 1;
     lifeCount.innerText = hearts;
 
@@ -43,7 +44,7 @@ retryButton.addEventListener("click", () => {
   gameMessage.style.display = "none";
   beforeStartSound.play();
   setTimeout(() => {
-    startGame();
+    startGame(level);
   }, 4000);
 });
 

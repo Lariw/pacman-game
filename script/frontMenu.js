@@ -23,6 +23,7 @@ const musicVolumeInput = document.querySelector(".musicVolumeInput");
 const soundsVolumeInput = document.querySelector(".soundsVolumeInput");
 const pauseGame = document.querySelector(".js-pauseGame");
 const playGame = document.querySelector(".js-playGame");
+const nextLevelBtn = document.querySelector(".js-gameMessage__nextLV");
 const sounds = [
   ghostAudio,
   deathSound,
@@ -33,6 +34,7 @@ const sounds = [
   fruitSound,
   beforeStartSound,
 ];
+let level = 1;
 
 setTimeout(() => {
   readConfig();
@@ -56,7 +58,7 @@ startButton.addEventListener("click", () => {
   scoreContainer.style.display = "flex";
   menus.style.display = "none";
   introAudio.pause();
-  startGame();
+  startGame(level);
 });
 
 settingsBtn.addEventListener("click", () => {
@@ -76,6 +78,15 @@ returnBtn.addEventListener("click", () => {
   }
 
   saveConfig(control, musicVolumeInput.value, soundsVolumeInput.value);
+});
+
+nextLevelBtn.addEventListener("click", () => {
+  level += 1;
+  gameMessage.style.display = "none";
+  beforeStartSound.play();
+  setTimeout(() => {
+    startGame(level);
+  }, 4000);
 });
 
 mainImage.addEventListener("click", () => {
