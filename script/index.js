@@ -1,8 +1,15 @@
 let animationID;
 let isPacmanAlive = true;
 let score = null;
+const platform = process.platform;
 const startGame = (level) => {
   let pacmanSpeed = 2;
+  let enemySpeed = 1.5;
+  if (platform == "darwin") {
+    pacmanSpeed = 4;
+    enemySpeed = 4;
+  }
+
   let fallSpeed = 1;
   const drawBackground = () => {
     boundaries.forEach((boundary) => {
@@ -138,7 +145,7 @@ const startGame = (level) => {
   }
 
   class Enemy {
-    static speed = 1.5;
+    static speed = enemySpeed;
     constructor({ position, velocity, color = "red" }) {
       this.position = position;
       this.velocity = velocity;
