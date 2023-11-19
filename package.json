@@ -16,7 +16,7 @@
     "electron-builder": "^24.6.4"
   },
   "build": {
-    "icon": "assets/icons/icon_512.icns",
+    "icon": "assets/icons/icon_256.ico",
     "productName": "PacMan",
     "win": {
       "target": "nsis"
@@ -27,6 +27,15 @@
     },
     "directories": {
       "output": "dist"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "config",
+        "to": "config",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   }
 }

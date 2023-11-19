@@ -1,6 +1,7 @@
 const fs = require("fs");
+const path = require("path");
 
-const configPath = "config.txt";
+const pathToConfig = path.join(__dirname, "../../", "config", "config.txt");
 
 const saveConfig = (gameControl, musicVol, soundVol) => {
   const config = {
@@ -9,12 +10,12 @@ const saveConfig = (gameControl, musicVol, soundVol) => {
     soundVolume: soundVol,
   };
 
-  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+  fs.writeFileSync(pathToConfig, JSON.stringify(config, null, 2));
 };
 
 const readConfig = () => {
-  if (fs.existsSync(configPath)) {
-    const configFromFile = fs.readFileSync(configPath, "utf-8");
+  if (fs.existsSync(pathToConfig)) {
+    const configFromFile = fs.readFileSync(pathToConfig, "utf-8");
     try {
       const configTab = JSON.parse(configFromFile);
       sounds.forEach((sound) => {

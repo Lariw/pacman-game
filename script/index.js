@@ -2,8 +2,8 @@ let animationID;
 let isPacmanAlive = true;
 let score = null;
 const startGame = (level) => {
+  let pacmanSpeed = 2;
   let fallSpeed = 1;
-
   const drawBackground = () => {
     boundaries.forEach((boundary) => {
       boundary.draw();
@@ -138,14 +138,13 @@ const startGame = (level) => {
   }
 
   class Enemy {
-    static speed = 1;
+    static speed = 1.5;
     constructor({ position, velocity, color = "red" }) {
       this.position = position;
       this.velocity = velocity;
       this.color = color;
       this.radius = 15;
       this.prevCollisions = [];
-      this.speed = 1;
       this.scared = false;
     }
     draw() {
@@ -512,9 +511,9 @@ const startGame = (level) => {
             scoreElement.innerText = score;
             ghostAudio.play();
           } else {
+            isPacmanAlive = false;
             pacman.velocity.x = 0;
             pacman.velocity.y = 0;
-            isPacmanAlive = false;
             collisionHandled = true;
             fallAnimation();
             cancelAnimationFrame(animationID);
@@ -530,7 +529,7 @@ const startGame = (level) => {
             circle: {
               ...enemy,
               velocity: {
-                x: enemy.speed,
+                x: Enemy.speed,
                 y: 0,
               },
             },
@@ -545,7 +544,7 @@ const startGame = (level) => {
             circle: {
               ...enemy,
               velocity: {
-                x: -enemy.speed,
+                x: -Enemy.speed,
                 y: 0,
               },
             },
@@ -561,7 +560,7 @@ const startGame = (level) => {
               ...enemy,
               velocity: {
                 x: 0,
-                y: -enemy.speed,
+                y: -Enemy.speed,
               },
             },
             rectangle: boundary,
@@ -576,7 +575,7 @@ const startGame = (level) => {
               ...enemy,
               velocity: {
                 x: 0,
-                y: enemy.speed,
+                y: Enemy.speed,
               },
             },
             rectangle: boundary,
@@ -608,23 +607,23 @@ const startGame = (level) => {
 
         switch (direction) {
           case "down":
-            enemy.velocity.y = enemy.speed;
+            enemy.velocity.y = Enemy.speed;
             enemy.velocity.x = 0;
             break;
 
           case "up":
-            enemy.velocity.y = -enemy.speed;
+            enemy.velocity.y = -Enemy.speed;
             enemy.velocity.x = 0;
             break;
 
           case "left":
             enemy.velocity.y = 0;
-            enemy.velocity.x = -enemy.speed;
+            enemy.velocity.x = -Enemy.speed;
             break;
 
           case "right":
             enemy.velocity.y = 0;
-            enemy.velocity.x = enemy.speed;
+            enemy.velocity.x = Enemy.speed;
             break;
         }
 
@@ -646,7 +645,7 @@ const startGame = (level) => {
               ...pacman,
               velocity: {
                 x: 0,
-                y: -2,
+                y: -pacmanSpeed,
               },
             },
             rectangle: boundary,
@@ -655,7 +654,7 @@ const startGame = (level) => {
           pacman.velocity.y = 0;
           break;
         } else {
-          pacman.velocity.y = -2;
+          pacman.velocity.y = -pacmanSpeed;
         }
       }
     } else if (keys.a.presssed && lastKey === keyLeft) {
@@ -666,7 +665,7 @@ const startGame = (level) => {
             circle: {
               ...pacman,
               velocity: {
-                x: -2,
+                x: -pacmanSpeed,
                 y: 0,
               },
             },
@@ -676,7 +675,7 @@ const startGame = (level) => {
           pacman.velocity.x = 0;
           break;
         } else {
-          pacman.velocity.x = -2;
+          pacman.velocity.x = -pacmanSpeed;
         }
       }
     } else if (keys.s.presssed && lastKey === keyDown) {
@@ -688,7 +687,7 @@ const startGame = (level) => {
               ...pacman,
               velocity: {
                 x: 0,
-                y: 2,
+                y: pacmanSpeed,
               },
             },
             rectangle: boundary,
@@ -697,7 +696,7 @@ const startGame = (level) => {
           pacman.velocity.y = 0;
           break;
         } else {
-          pacman.velocity.y = 2;
+          pacman.velocity.y = pacmanSpeed;
         }
       }
     } else if (keys.d.presssed && lastKey === keyRight) {
@@ -708,7 +707,7 @@ const startGame = (level) => {
             circle: {
               ...pacman,
               velocity: {
-                x: 2,
+                x: pacmanSpeed,
                 y: 0,
               },
             },
@@ -718,13 +717,16 @@ const startGame = (level) => {
           pacman.velocity.x = 0;
           break;
         } else {
-          pacman.velocity.x = 2;
+          pacman.velocity.x = pacmanSpeed;
         }
       }
     }
 
     if (foods.length === 0) {
-      cancelAnimationFrame(animationID);
+      setTimeout(() => {
+        cancelAnimationFrame(animationID);
+      }, 100);
+
       showGameMessage("win");
       winningGameSound.play();
     }
