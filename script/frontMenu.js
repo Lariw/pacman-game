@@ -4,9 +4,11 @@ const scoreContainer = document.querySelector(".topContainer");
 const frontPageContainer = document.querySelector(".frontPage");
 const frontPageMenu = document.querySelector(".frontPage__menu");
 const settingsBtn = document.querySelector(".js-settingsButton");
+const viewMapBtn = document.querySelector(".js-mapsButton");
 const settingSection = document.querySelector(".settings__menu");
+const viewMapSection = document.querySelector(".viewMap__menu");
 const menus = document.querySelector(".menus");
-const returnBtn = document.querySelector(".js-returnBtn");
+const returnBtn = document.querySelectorAll(".js-returnBtn");
 const mainImage = document.querySelector(".js-frontPage_image");
 const keyControlWSAD = document.querySelector(".js-keyControl-wsad");
 const keyControlArrow = document.querySelector(".js-keyControl-arrow");
@@ -66,20 +68,29 @@ settingsBtn.addEventListener("click", () => {
   settingSection.style.display = "block";
 });
 
-returnBtn.addEventListener("click", () => {
-  let control;
-  frontPageMenu.style.display = "block";
-  settingSection.style.display = "none";
-
-  if (keyControlWSAD.checked) {
-    control = "wsad";
-  } else if (keyControlArrow.checked) {
-    control = "arrow";
-  }
-
-  saveConfig(control, musicVolumeInput.value, soundsVolumeInput.value);
+viewMapBtn.addEventListener("click", () => {
+  frontPageMenu.style.display = "none";
+  viewMapSection.style.display = "block";
+  mainImage.style.display = "none";
 });
 
+returnBtn.forEach((el) => {
+  el.addEventListener("click", () => {
+    mainImage.style.display = "block";
+    let control;
+    frontPageMenu.style.display = "block";
+    viewMapSection.style.display = "none";
+    settingSection.style.display = "none";
+
+    if (keyControlWSAD.checked) {
+      control = "wsad";
+    } else if (keyControlArrow.checked) {
+      control = "arrow";
+    }
+
+    saveConfig(control, musicVolumeInput.value, soundsVolumeInput.value);
+  });
+});
 nextLevelBtn.addEventListener("click", () => {
   level += 1;
   gameMessage.style.display = "none";

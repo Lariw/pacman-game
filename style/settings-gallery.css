@@ -1,0 +1,44 @@
+.viewMap__menu {
+  width: 100%;
+  display: none;
+  height: 720px;
+}
+.gallery__heading {
+  text-align: center;
+  color: #fff;
+}
+
+.gallery__preview {
+  width: 100%;
+  
+}
+.gallery__imagePreview {
+  display: block;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.gallery__container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.gallery_row {
+}
+
+.gallery__column {
+  margin: 20px;
+}
+
+.gallery_img {
+  width: 100%;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.gallery_img:hover {
+  opacity: 1;
+}

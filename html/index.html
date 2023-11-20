@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="../style/frontPage.css" />
     <link rel="stylesheet" href="../style/settings.css" />
     <link rel="stylesheet" href="../style/messages.css" />
+    <link rel="stylesheet" href="../style/settings-gallery.css" />
     <script defer src="../script/navigationButtons.js"></script>
     <script defer src="../script/index.js"></script>
     <script defer src="../script/frontMenu.js"></script>
     <script defer src="../script/mouseIdle.js"></script>
     <script defer src="../script/gameMessage.js"></script>
     <script defer src="../script/saveAndReadConfig.js"></script>
+    <script defer src="../script/gallerySlider.js"></script>
     <script
       src="https://kit.fontawesome.com/992def5dc8.js"
       crossorigin="anonymous"
@@ -119,6 +121,55 @@
                 step="0.1"
                 type="range"
             /></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewMap__menu">
+        <div class="settings__returnContainer">
+          <button class="settings__returnBtn js-returnBtn">
+            <i class="return__icon fa-solid fa-circle-arrow-left fa-xl"></i>
+          </button>
+        </div>
+
+        <div class="gallery_row">
+          <div class="gallery__preview">
+            <h2 class="gallery__heading js-chapter">Chapter 1</h2>
+            <img class="gallery__imagePreview js-imagePreview" src="../img/map1.png" alt="preview image" />
+          </div>
+
+          <div class="gallery__container">
+            <div class="gallery__column">
+              <img
+                class="gallery_img js-Galleryimage"
+                src="../img/map1.png"
+                alt="chapter 1"
+              />
+            </div>
+
+            <div class="gallery__column">
+              <img
+                class="gallery_img js-Galleryimage"
+                src="../img/map2.png"
+                alt="chapter 2"
+              />
+            </div>
+
+            <div class="gallery__column">
+              <img
+                class="gallery_img js-Galleryimage"
+                src="../img/map3.png"
+                alt="chapter 3"
+              />
+            </div>
+
+            <div class="gallery__column">
+              <img
+                class="gallery_img js-Galleryimage"
+                src="../img/clearmap.png"
+                alt="clear map"
+              />
+            </div>
           </div>
         </div>
       </div>
