@@ -25,15 +25,15 @@
   padding: 15px;
   border: none;
   border-radius: 5px;
-  background-color: #270ab8;
+  background-color: #86BF29;
   color: #fff;
   cursor: pointer;
 }
 
 .frontPage_menuButton:hover {
-  background-color: #310de8;
+  background-color: #9ed742;
 }
 
 .frontPage_menuButton:active {
-  background-color: #3c17f2;
+  background-color: #b3e06c;
 }
