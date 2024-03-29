@@ -37,7 +37,7 @@ To run the game locally, follow these steps:
 4. Run `npm install` to install dependencies.
 5. Run `npm start` to start the game.
 
-or download app from realeses [here]()
+or download app from realeses [here](https://github.com/Lariw/pacman-game/releases/)
 
 ## Controls
 - Use the arrow keys or WASD keys to move Pacman.
