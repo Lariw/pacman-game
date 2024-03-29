@@ -1,6 +1,6 @@
 {
   "name": "pacman-game",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Pacman game",
   "license": "MIT",
   "main": "electron/electron.js",
